@@ -4,7 +4,7 @@ This workspace root is a **scaffold** for creating independent projects. Each su
 
 ## Structure
 
-- Each subfolder = standalone git repo, independent language/framework, its own CI, its own `AGENTS.md`
+- Each subfolder = standalone git repo, independent language/framework, its own CI, its own `AGENTS.md`. Enforced by `.gitignore` (`/*/` ignores all subdirectories at root level)
 - Root config files (this file, `opencode.json`, `.pre-commit-config.yaml`, `.github/`) are **workspace scaffolding**, not project-specific — do not apply them to subfolder repos
 - `.opencode/instructions/git-workflow.md` — workspace-wide git convention (topic branches, no rebase, SemVer). Referenced via `opencode.json` `instructions`. Apply per-repo when creating new projects.
 
@@ -34,3 +34,5 @@ Subfolder projects define their own commands.
 ## Git workflow
 
 Follow `.opencode/instructions/git-workflow.md` for each project repo: topic branches from `development`, PRs, no rebase, annotated SemVer tags.
+
+SSH workaround (Linux container, macOS host) is documented in the same file.

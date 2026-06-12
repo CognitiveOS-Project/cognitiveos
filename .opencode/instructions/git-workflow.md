@@ -40,6 +40,20 @@ Do not substitute stash/rebase flows for "sync git" unless the user asks for a p
 
 Use the GitHub UI, **`gh pr create`**, or a configured auto-PR workflow (see `.github/workflows/`). Provide a clear title and description of the changes.
 
+## SSH config workaround (Linux container, macOS host)
+
+If `git push` fails with `Bad configuration option: usekeychain`, the host's `~/.ssh/config` contains macOS-only `UseKeychain` directives that OpenSSH on Linux doesn't understand.
+
+Filter them out per-command:
+```bash
+cp ~/.ssh/config /tmp/ssh_config && sed -i '/UseKeychain/d' /tmp/ssh_config && GIT_SSH_COMMAND="ssh -F /tmp/ssh_config" git push
+```
+
+Or set permanently for the shell session:
+```bash
+export GIT_SSH_COMMAND="ssh -F <(sed '/UseKeychain/d' ~/.ssh/config)"
+```
+
 ## Releases and tags
 
 - **Feature releases:** Open a PR from **`development`** to **`main`**, merge, then tag on **`main`** with an **annotated** SemVer tag: `git tag -a vMAJOR.MINOR.PATCH -m "<description>"`. Push the tag: `git push origin vMAJOR.MINOR.PATCH`.
