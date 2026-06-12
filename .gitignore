@@ -11,3 +11,5 @@ node_modules/
 # Session files
 sessions/
 .sessions/
+package.json
+package-lock.json
