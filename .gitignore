@@ -4,3 +4,6 @@
 # But keep the scaffolding directories
 !/.github/
 !/.opencode/
+
+# Session files
+sessions/

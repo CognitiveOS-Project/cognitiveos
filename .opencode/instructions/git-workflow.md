@@ -44,15 +44,18 @@ Use the GitHub UI, **`gh pr create`**, or a configured auto-PR workflow (see `.g
 
 If `git push` fails with `Bad configuration option: usekeychain`, the host's `~/.ssh/config` contains macOS-only `UseKeychain` directives that OpenSSH on Linux doesn't understand.
 
-Filter them out per-command:
+This is handled automatically by `~/.profile` (see `AGENTS.md`), which sets `GIT_SSH_COMMAND` to filter out the offending lines.
+
+## GH_TOKEN for GitHub API auth
+
+`gh` needs a token for API operations (PRs, issues, reviews). SSH keys cover only `git` operations.
+
+On first use, authenticate with the device flow:
 ```bash
-cp ~/.ssh/config /tmp/ssh_config && sed -i '/UseKeychain/d' /tmp/ssh_config && GIT_SSH_COMMAND="ssh -F /tmp/ssh_config" git push
+gh auth login --git-protocol ssh --web
 ```
 
-Or set permanently for the shell session:
-```bash
-export GIT_SSH_COMMAND="ssh -F <(sed '/UseKeychain/d' ~/.ssh/config)"
-```
+The `oauth_token` from `~/.config/gh/hosts.yml` is automatically exported as `GH_TOKEN` via `~/.profile` for headless (non-interactive) sessions. Re-auth only needed if the token expires or is revoked.
 
 ## Releases and tags
 
