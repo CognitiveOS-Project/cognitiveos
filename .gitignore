@@ -5,6 +5,9 @@
 !/.github/
 !/.opencode/
 
+# Dependencies
+node_modules/
+
 # Session files
 sessions/
 .sessions/
