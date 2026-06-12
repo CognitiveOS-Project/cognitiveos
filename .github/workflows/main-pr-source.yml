@@ -1,0 +1,26 @@
+# Enforce that pull requests into main come only from development.
+# In GitHub: Settings -> Branches -> Branch protection for main ->
+# require status checks and select the job from this workflow.
+name: Main PR source
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  allowed-source-for-main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require head branch development for PRs to main
+        run: |
+          head="${{ github.head_ref }}"
+          if [ "$head" = "development" ]; then
+            echo "OK: PR head is development."
+            exit 0
+          fi
+          echo "::error::Pull requests to main must use development as the head branch (got: $head)."
+          exit 1

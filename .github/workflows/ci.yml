@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches: [main, development]
+  pull_request:
+    branches: [main, development]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # TODO: Add setup step for your language/runtime
+      # TODO: Add lint step (e.g., ruff check .)
+      - name: Lint (placeholder)
+        run: echo "Replace with your linter command"
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # TODO: Add setup step for your language/runtime
+      # TODO: Add test step (e.g., pytest -v)
+      - name: Test (placeholder)
+        run: echo "Replace with your test command"

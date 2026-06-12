@@ -1,0 +1,6 @@
+# Ignore all subdirectories (each is its own independent git repo)
+/*/
+
+# But keep the scaffolding directories
+!/.github/
+!/.opencode/

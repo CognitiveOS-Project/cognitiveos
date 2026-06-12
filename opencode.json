@@ -1,0 +1,44 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "opencode": {
+      "name": "OpenCode Zen",
+      "models": {
+        "big-pickle": {
+          "name": "Big Pickle"
+        },
+        "deepseek-v4-flash-free": {
+          "name": "DeepSeek V4 Flash Free"
+        },
+        "mimo-v2.5-free": {
+          "name": "MiMo-V2.5 Free"
+        },
+        "nemotron-3-ultra-free": {
+          "name": "Nemotron 3 Ultra Free"
+        }
+      }
+    },
+
+    "code-inference": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Local Code Inference Server",
+      "options": {
+        "baseURL": "http://api:8000/v1"
+      },
+      "models": {
+        "model.gguf": {
+          "name": "Local Model",
+          "supportsToolCalls": true,
+          "limit": {
+            "context": 16384,
+            "output": 8192
+          }
+        }
+      }
+    }
+  },
+  "model": "code-inference/model.gguf",
+  "instructions": [
+    "AGENTS.md"
+  ]
+}

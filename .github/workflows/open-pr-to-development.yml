@@ -1,0 +1,70 @@
+# When you push to feature/*, fix/*, or bugfix/*, open a PR into development if none exists yet.
+# Runs entirely on GitHub Actions (no local GitHub CLI required).
+#
+# REQUIRED — or POST /pulls returns 403 "not permitted to create or approve pull requests":
+#   Repo: Settings -> Actions -> General -> Workflow permissions
+#   - Select "Read and write permissions"
+#   - Enable "Allow GitHub Actions to create and approve pull requests"
+#   Orgs: enable the same policy at the organization level first, then the repo checkbox unlocks.
+name: Open PR to development
+
+on:
+  push:
+    branches:
+      - "feature/**"
+      - "fix/**"
+      - "bugfix/**"
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  open-pr:
+    runs-on: ubuntu-latest
+    if: ${{ !github.event.repository.fork }}
+    steps:
+      - name: Create pull request if missing
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const branch = context.ref.replace("refs/heads/", "");
+            const head = `${owner}:${branch}`;
+
+            const { data: openPrs } = await github.rest.pulls.list({
+              owner,
+              repo,
+              head,
+              base: "development",
+              state: "open",
+              per_page: 100,
+            });
+            if (openPrs.length > 0) {
+              console.log(`Open PR already exists: #${openPrs[0].number}`);
+              return;
+            }
+
+            const { data: commit } = await github.rest.repos.getCommit({
+              owner,
+              repo,
+              ref: context.sha,
+            });
+            const raw = commit.commit.message || "";
+            const title = (raw.split("\n")[0] || branch).trim().slice(0, 300) || branch;
+            const body = [
+              `Opened automatically when \`${branch}\` was pushed.`,
+              "",
+              "_Edit the title or description if needed._",
+            ].join("\n");
+
+            const { data: created } = await github.rest.pulls.create({
+              owner,
+              repo,
+              title,
+              head: branch,
+              base: "development",
+              body,
+            });
+            console.log(`Created PR #${created.number}: ${created.html_url}`);
