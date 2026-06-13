@@ -4,6 +4,7 @@
 # But keep the scaffolding directories
 !/.github/
 !/.opencode/
+!/.devcontainer/
 
 # Dependencies
 node_modules/
