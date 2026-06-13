@@ -19,13 +19,9 @@ These are wired via `opencode.json` `instructions` array or YAML frontmatter `al
 - `AGENTS.md` (this file) — workspace structure
 - `.opencode/instructions/git-workflow.md` — branching, PR flow, no rebase, sync, auth setup
 
-## Container is ephemeral
+## start.sh
 
-`gh` auth, `~/.profile` (GH_TOKEN, GIT_SSH_COMMAND) vanish on rebuild. Bootstrap:
-
-```bash
-./start.sh
-```
+`start.sh` installs and launches a local code-inference server. Run it manually — it needs Docker and git, plus an interactive TTY.
 
 ## CI workflows (`.github/workflows/`)
 
