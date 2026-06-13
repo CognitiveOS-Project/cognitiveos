@@ -29,6 +29,14 @@ These are wired via `opencode.json` `instructions` array or YAML frontmatter `al
 - `open-pr-to-development.yml` — functional: auto-opens PR on `feature/*`, `fix/*`, `bugfix/*` push
 - `main-pr-source.yml` — functional: enforces PRs to `main` originate from `development`
 
+## Auth
+
+**SSH only — never HTTPS.** This instance is pre-configured with SSH keys for `gh` and `git`. HTTPS with token-based auth is fragile and must not be used.
+
+- Remote URLs must use `git@github.com:` (SSH), never `https://github.com/`.
+- Do not set or rely on `GH_TOKEN` for git operations. The env var may contain stale credentials.
+- If `GH_TOKEN` is set and invalid, unset it before running `gh` commands.
+
 ## Default model
 
 `opencode.json` defaults to local inference at `http://api:8000/v1` (model.gguf). Cloud model aliases (`big-pickle`, `deepseek-v4-flash-free`, etc.) — switch with `/model`.
