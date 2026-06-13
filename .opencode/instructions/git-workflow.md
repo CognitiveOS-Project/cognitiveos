@@ -46,16 +46,21 @@ If `git push` fails with `Bad configuration option: usekeychain`, the host's `~/
 
 This is handled automatically by `~/.profile` (see `AGENTS.md`), which sets `GIT_SSH_COMMAND` to filter out the offending lines.
 
-## GH_TOKEN for GitHub API auth
+## Auth — SSH only, never HTTPS
 
-`gh` needs a token for API operations (PRs, issues, reviews). SSH keys cover only `git` operations.
+**This instance is pre-configured with SSH keys for `gh` and `git`. Never use HTTPS.**
 
-On first use, authenticate with the device flow:
-```bash
-gh auth login --git-protocol ssh --web
-```
-
-The `oauth_token` from `~/.config/gh/hosts.yml` is automatically exported as `GH_TOKEN` via `~/.profile` for headless (non-interactive) sessions. Re-auth only needed if the token expires or is revoked.
+- Remote URLs must use `git@github.com:` (SSH), never `https://github.com/`.
+- `GH_TOKEN` must not be set or relied upon. If it contains stale credentials, unset it before running `gh` commands.
+- Do not set `GH_TOKEN` from `~/.config/gh/hosts.yml` or any other source.
+- If re-auth is needed, use the device flow with `--git-protocol ssh`:
+  ```bash
+  unset GH_TOKEN && gh auth login --git-protocol ssh --web
+  ```
+- `~/.ssh/` is on a read-only filesystem, so `UserKnownHostsFile` must point to `/tmp/`:
+  ```bash
+  export GIT_SSH_COMMAND="$GIT_SSH_COMMAND -o UserKnownHostsFile=/tmp/known_hosts"
+  ```
 
 ## Releases and tags
 
