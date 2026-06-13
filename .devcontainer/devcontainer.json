@@ -1,4 +1,0 @@
-{
-  "name": "AI Workspace",
-  "postStartCommand": "bash ./start.sh"
-}
