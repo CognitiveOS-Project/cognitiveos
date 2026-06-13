@@ -4,6 +4,16 @@
 
 This repo is designed around a simple insight: every AI coding session can waste 30 minutes figuring out project setup, conventions, and tooling — or it can just work. This workspace is that second option.
 
+<div align="center">
+  <a href="https://codespaces.new/jeanmachuca/aiworkspace">
+    <img src="https://github.com/codespaces/badge.svg" alt="Open in GitHub Codespaces" />
+  </a>
+  <br />
+  <sub><b>One-click cloud dev environment</b> — no setup, no install</sub>
+</div>
+
+<br />
+
 One `git clone` and you get a battle-tested structure where:
 
 - **AI agents know how to work here** — `AGENTS.md`, `opencode.json`, and `.opencode/instructions/` pre-load agents with workspace conventions, git workflow, and tooling so they don't guess.
@@ -25,6 +35,12 @@ One `git clone` and you get a battle-tested structure where:
 | `dev-requirements.txt` | Dev tool deps (pre-commit) |
 
 ## Quick start
+
+### 🌐 GitHub Codespaces (recommended)
+
+Click the button above to launch a fully configured cloud dev environment in seconds. Codespaces comes with all tooling pre-installed — no local setup required.
+
+### 💻 Local
 
 ```bash
 git clone <repo-url>
