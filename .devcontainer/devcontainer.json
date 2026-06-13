@@ -1,4 +1,5 @@
 {
   "name": "AI Workspace",
-  "postCreateCommand": "pip install -r dev-requirements.txt && pre-commit install && bash ./pre-start.sh"
+  "postCreateCommand": "pip install -r dev-requirements.txt && pre-commit install",
+  "postStartCommand": "bash ./start.sh"
 }
