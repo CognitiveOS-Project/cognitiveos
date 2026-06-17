@@ -1,6 +1,7 @@
 FROM python:3.13
 
 WORKDIR /workspace
+VOLUME "/workspace"
 
 COPY . .
 
