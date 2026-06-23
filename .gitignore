@@ -8,6 +8,9 @@
 # Dependencies
 node_modules/
 
+# macOS metadata
+.DS_Store
+
 # Session files
 sessions/
 .sessions/
