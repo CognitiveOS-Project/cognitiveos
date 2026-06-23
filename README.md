@@ -110,6 +110,10 @@ The default model is a local GGUF inference server (`http://api:8000/v1`). Cloud
 
 Switch with `/model <name>` in OpenCode.
 
+## Acknowledgments
+
+See [ACKNOWLEDGMENTS.md](ACKNOWLEDGMENTS.md) for the open-source projects that make CognitiveOS possible.
+
 ## License
 
 [MIT](LICENSE)

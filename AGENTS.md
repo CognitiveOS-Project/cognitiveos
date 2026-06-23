@@ -15,6 +15,25 @@
 - **`/tmp/opencode`** — For temporary/throwaway files only. May be root-owned and unwritable; if so, use a temp subdirectory under the workspace root instead.
 - When cloning repos for editing, clone them into subdirectories under the workspace root, e.g. `gh repo clone owner/repo ./repo`. Each subfolder is a standalone git repo (`.gitignore` pattern `/*/` keeps them independent from the root).
 
+## CognitiveOS Project
+
+Subfolder projects under `CognitiveOS-Project` GitHub org:
+
+| Subfolder | Repo | Language | Role |
+|-----------|------|----------|------|
+| `product-specs/` | product-specs | Markdown/JSON | Standards, schemas, .cgp format |
+| `sdlc/` | sdlc | Markdown | Implementation plan, workflow, CI/CD |
+| `cpm/` | cpm | Go | Cognitive Package Manager |
+| `core-mcp-bridges/` | core-mcp-bridges | Go | MCP hardware tool servers |
+| `inference/` | inference | Go/C | LLM inference engine |
+| `cognitiveosd/` | cognitiveosd | Go | System daemon |
+| `cli/` | cli | Go | Bubble Tea TUI frontend |
+| `cognitiveos-distro/` | cognitiveos-distro | Shell/Docker | Alpine image builder |
+| `cgp-template/` | cgp-template | Template | .cgp boilerplate |
+| `registry-server/` | registry-server | Go | Package registry |
+
+**Git workflow:** All repos use topic-branch flow (`development` base branch), SSH-only, no rebase.
+
 ## Dev tooling
 
 - `pre-commit` (install via `pip install -r dev-requirements.txt && pre-commit install`) — the only root-level dev tool. Subfolder projects manage their own.
