@@ -17,3 +17,10 @@ sessions/
 package.json
 package-lock.json
 .fuse*
+
+# Editor backups
+*.swp
+*.swo
+
+# macOS
+.DS_Store
