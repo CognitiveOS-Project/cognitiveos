@@ -65,4 +65,71 @@ This is handled automatically by `~/.profile` (see `AGENTS.md`), which sets `GIT
 ## Releases and tags
 
 - **Feature releases:** Open a PR from **`development`** to **`main`**, merge, then tag on **`main`** with an **annotated** SemVer tag: `git tag -a vMAJOR.MINOR.PATCH -m "<description>"`. Push the tag: `git push origin vMAJOR.MINOR.PATCH`.
-- **Integration tags:** After a feature/fix/bugfix PR merges into **`development`**, optionally tag with `vMAJOR.MINOR.PATCH-dev.N` on **`development`**.
+- **Integration tags:** After a feature/fix/bugfix PR merges into **`development`**, optionally tag with `vMAJOR.MINOR.PATCH-dev.N` on **`development``.
+
+## Release pipeline (CognitiveOS multi-repo)
+
+CognitiveOS spans 11 repos under `CognitiveOS-Project`. A coordinated release follows this process:
+
+### 1. Merge changes to `development`
+
+For each repo with changes:
+```bash
+git fetch origin
+git checkout -b <topic> origin/development
+# make changes, commit
+git push -u origin HEAD
+gh pr create --base development --head <topic>
+gh pr merge <number> --squash --delete-branch=false
+```
+
+### 2. Promote `development` → `main`
+
+After squash-merge history, a direct `development→main` PR may fail with "merge commit cannot be cleanly created" due to divergent commit history. **Always use a topic branch from `main` with a cherry-pick:**
+
+```bash
+# 1. Get the commit hash from development
+git fetch origin development
+hash=$(git log --oneline origin/development -- <path> | head -1 | awk '{print $1}')
+
+# 2. Create topic branch from main and cherry-pick
+git checkout -b <topic>-main origin/main
+git cherry-pick $hash
+git push -u origin <topic>-main
+
+# 3. PR and merge to main
+gh pr create --base main --head <topic>-main
+gh pr merge <number> --squash --delete-branch=false
+```
+
+### 3. Cross-repo coordination
+
+When the same change type (e.g. docs, gitignore, attribution) applies to multiple repos, batch the work:
+
+1. **Create topic branches** for all repos in parallel
+2. **Push all branches**
+3. **Create and merge PRs to `development`** for all repos
+4. **Update local `development`** branches (`git pull`)
+5. **Cherry-pick to `main`** for each repo (step 2 above)
+6. **Clean up** local and remote topic branches
+
+### 4. Tagging
+
+Tag all repos at the same version after all merges are complete:
+
+```bash
+version="vMAJOR.MINOR.PATCH"
+for repo in cognitiveos product-specs sdlc cpm core-mcp-bridges inference cognitiveosd cli cognitiveos-distro registry-server cgp-template cognitive-os.org; do
+  gh -R CognitiveOS-Project/$repo api repos/CognitiveOS-Project/$repo/git/refs -X POST \
+    -f ref="refs/tags/$version" \
+    -f sha="$(gh -R CognitiveOS-Project/$repo api repos/CognitiveOS-Project/$repo/branches/main --jq '.commit.sha')"
+done
+```
+
+### 5. GitHub Pages deployment
+
+The website repo (`cognitive-os.org`) auto-deploys via `.github/workflows/pages.yml` on push to `main`. Verify deployment:
+
+```bash
+gh api repos/CognitiveOS-Project/cognitive-os.org/pages --jq '{status, html_url}'
+```
