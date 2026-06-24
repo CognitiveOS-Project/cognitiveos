@@ -14,6 +14,7 @@
 - **Workspace root** (where `opencode.json` and this file live) — Use for all git operations, project files, and cloned repos. This is the persistent working directory.
 - **`/tmp/opencode`** — For temporary/throwaway files only. May be root-owned and unwritable; if so, use a temp subdirectory under the workspace root instead.
 - When cloning repos for editing, clone them into subdirectories under the workspace root, e.g. `gh repo clone owner/repo ./repo`. Each subfolder is a standalone git repo (`.gitignore` pattern `/*/` keeps them independent from the root).
+- **Org meta-repos** (e.g., `CognitiveOS-Project/.github`) — avoid name collisions with the root's `/.github/` directory. Clone into a descriptive name like `org-repo` instead: `gh repo clone CognitiveOS-Project/.github ./org-repo`.
 
 ## CognitiveOS Project
 
