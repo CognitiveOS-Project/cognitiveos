@@ -1,114 +1,93 @@
-# AI Workspace
+# CognitiveOS
 
-**Zero-setup scaffold for AI-assisted development with OpenCode.**
+**An AI-native operating system.** No apps. No browsers. No permission dialogs. Intent-centric computing.
 
-This repo is designed around a simple insight: every AI coding session can waste 30 minutes figuring out project setup, conventions, and tooling — or it can just work. This workspace is that second option.
+Replace app-centric computing — find, open, learn, grant permissions, manage files — with a single interaction:
 
-<div align="center">
-  <a href="https://codespaces.new/jeanmachuca/aiworkspace">
-    <img src="https://github.com/codespaces/badge.svg" alt="Open in GitHub Codespaces" />
-  </a>
-  <br />
-  <sub><b>One-click cloud dev environment</b> — no setup, no install</sub>
-</div>
-
-<br />
-
-One `git clone` and you get a battle-tested structure where:
-
-- **AI agents know how to work here** — `AGENTS.md`, `opencode.json`, and `.opencode/instructions/` pre-load agents with workspace conventions, git workflow, and tooling so they don't guess.
-- **Projects are isolated** — each subfolder is its own independent git repo with its own language, framework, CI, and `AGENTS.md`. Root level is scaffolding, not code.
-- **CI/CD ships free** — auto-PR on `feature/*`/`fix/*`/`bugfix/*` push, `main`-from-`development` enforcement, and publish workflow templates.
-- **Container-friendly** — `./start.sh` restores `gh` auth, SSH config, and local inference server on ephemeral container rebuild.
-- **Opinionated git workflow** — topic branches, no rebase, SemVer tags. Documented once, used by every agent.
-
-## What's inside
-
-| What | Why it matters |
-|------|----------------|
-| `AGENTS.md` | Tells any AI agent the workspace layout, tooling, and conventions |
-| `opencode.json` | OpenCode config with local + cloud model presets |
-| `.opencode/instructions/git-workflow.md` | Branch/PR/release conventions loaded automatically |
-| `.github/workflows/` | Auto-PR, main protection, CI/test/publish templates |
-| `.pre-commit-config.yaml` | Pre-commit hooks (trailing whitespace, YAML, large files) |
-| `start.sh` | Single‑command container bootstrap |
-| `dev-requirements.txt` | Dev tool deps (pre-commit) |
-
-## Quick start
-
-### 🌐 GitHub Codespaces (recommended)
-
-Click the button above to launch a fully configured cloud dev environment in seconds. Codespaces comes with all tooling pre-installed — no local setup required.
-
-### 💻 Local
-
-```bash
-git clone <repo-url>
-cd <repo>
-pip install -r dev-requirements.txt && pre-commit install
+```
+1. Start the device
+2. Ask AI (speak or text)
+3. AI does something
 ```
 
-To spin up a new project, create a subfolder and give it its own `AGENTS.md`, language config, and CI. The root ignores it by default — you own it completely.
+The human sets goals. The AI operates the machine.
 
-## AI agent awareness
+---
 
-This repo uses OpenCode's `instructions` array to load `AGENTS.md` automatically in every session. Agents start knowing:
+## Architecture
 
-- Root is scaffolding, subfolders are standalone repos
-- Pre-commit is the only root-level dev tool
-- The git workflow (topic branches, no rebase, PR flow)
-- CI workflows exist and which are functional vs placeholder
-- Container is ephemeral — `./start.sh` restores everything
+Two-tier AI brain on Alpine Linux, controlled via Bubble Tea TUI, talking to hardware through MCP bridges:
 
-No prompt preamble needed. Just start working.
-
-## Git workflow
-
-All pushed branches follow the same path:
-
-feature/fix/bugfix branch → PR → `development` → PR → `main` → SemVer tag
-
-The auto-PR workflow opens a PR to `development` automatically whenever a `feature/*`, `fix/*`, or `bugfix/*` branch is pushed. The `main` branch accepts PRs only from `development`.
-
-See [`.opencode/instructions/git-workflow.md`](.opencode/instructions/git-workflow.md) for details.
-
-## CI workflows
-
-- **open-pr-to-development.yml** — auto‑opens PR when pushing `feature/*`, `fix/*`, `bugfix/*`
-- **main-pr-source.yml** — enforces that PRs to `main` originate from `development`
-- **CI** — placeholder (replace with your test/lint commands)
-- **publish.yml** — commented template for GHCR Docker image publishing
-
-## Container bootstrap
-
-The dev container is ephemeral. After rebuild:
-
-```bash
-./start.sh
+```
+┌─────────────────────────────────────────────────────┐
+│                    User (Human)                      │
+├─────────────────────────────────────────────────────┤
+│                    Bubble Tea TUI (cli)              │
+├─────────────────────────────────────────────────────┤
+│         cognitiveosd (daemon — message bus)          │
+├──────────────────┬──────────────────────────────────┤
+│   Raw Model      │    Wide Model (inference)         │
+│   (local, MCU)   │    (local or remote .gguf)       │
+├──────────────────┴──────────────────────────────────┤
+│  MCP Bridges: display, audio, network, gpio, serial  │
+├─────────────────────────────────────────────────────┤
+│              Alpine Linux + /dev/fb0                 │
+└─────────────────────────────────────────────────────┘
 ```
 
-This installs the local code-inference server and starts it in full isolation mode.
+## Repositories
 
-## Making it yours
+| Repo | Language | Role |
+|------|----------|------|
+| [product-specs](https://github.com/CognitiveOS-Project/product-specs) | Markdown/JSON | Standards, schemas, .cgp format |
+| [sdlc](https://github.com/CognitiveOS-Project/sdlc) | Markdown | Implementation plan, workflow, CI/CD |
+| [cpm](https://github.com/CognitiveOS-Project/cpm) | Go | Cognitive Package Manager |
+| [core-mcp-bridges](https://github.com/CognitiveOS-Project/core-mcp-bridges) | Go | MCP hardware tool servers |
+| [inference](https://github.com/CognitiveOS-Project/inference) | Go/C | LLM inference engine |
+| [cognitiveosd](https://github.com/CognitiveOS-Project/cognitiveosd) | Go | System daemon |
+| [cli](https://github.com/CognitiveOS-Project/cli) | Go | Bubble Tea TUI frontend |
+| [cognitiveos-distro](https://github.com/CognitiveOS-Project/cognitiveos-distro) | Shell/Docker | Alpine image builder |
+| [cgp-template](https://github.com/CognitiveOS-Project/cgp-template) | Template | .cgp boilerplate |
+| [registry-server](https://github.com/CognitiveOS-Project/registry-server) | Go | Package registry |
 
-Fork or clone this repo and:
+## Design Principles
 
-1. Replace the CI workflow placeholders with your project's test/lint commands
-2. Add language-specific tooling to `dev-requirements.txt`
-3. Create your first project subfolder with its own `AGENTS.md`
-4. Set branch protection on `main` and `development` (GH repo settings)
-5. Enable "Read and write permissions" for Actions (required for auto-PR workflow)
+- **AI is the OS, not an app** — The AI owns hardware, resources, software lifecycle, and interaction. No fallback desktop. No settings app.
+- **One user: the AI** — No user accounts, no permission groups. The AI has unfettered hardware access.
+- **Self-managing** — The AI discovers, installs, and removes its own capabilities. The human never touches a package manager.
+- **Ephemeral interface** — No windows, no home screen, no app grid. UI exists only for the duration of a task.
+- **Universal substrate** — Same architecture from a smartwatch to a server. The only difference is where the model runs.
 
-## Model switching
+## Quick Start
 
-The default model is a local GGUF inference server (`http://api:8000/v1`). Cloud model aliases are pre-configured in `opencode.json`:
+```bash
+# Clone the distro builder
+git clone git@github.com:CognitiveOS-Project/cognitiveos-distro.git
+cd cognitiveos-distro
 
-- `big-pickle`
-- `deepseek-v4-flash-free`
-- `mimo-v2.5-free`
-- `nemotron-3-ultra-free`
+# Build an x86_64 ISO
+make iso
+```
 
-Switch with `/model <name>` in OpenCode.
+See each sub-repo's README for component-level build instructions.
+
+## Status
+
+All 7 implementation phases complete. Specs, SDLC, and all repos are implemented and merged.
+
+## Git Workflow
+
+All repos follow the same flow:
+
+```
+feature/fix/bugfix branch → PR → development → PR → main → SemVer tag
+```
+
+SSH-only, no rebase. See `.opencode/instructions/git-workflow.md` for details.
+
+## Author
+
+**Jean Machuca** — [GitHub](https://github.com/jeanmachuca) · [Sponsor](https://github.com/sponsors/jeanmachuca) · [LinkedIn](https://linkedin.com/in/jeanmachuca)
 
 ## Acknowledgments
 
@@ -116,4 +95,4 @@ See [ACKNOWLEDGMENTS.md](ACKNOWLEDGMENTS.md) for the open-source projects that m
 
 ## License
 
-[MIT](LICENSE)
+MIT
