@@ -71,9 +71,27 @@ make iso
 
 See each sub-repo's README for component-level build instructions.
 
-## Status
+## Implementation Status
 
-All 7 implementation phases complete. Specs, SDLC, and all repos are implemented and merged.
+Each component is at a different maturity level. Here is the current state across all repos:
+
+| Repo | Status | Details |
+|------|--------|---------|
+| [product-specs](https://github.com/CognitiveOS-Project/product-specs) | ✅ Complete | All 19 specs + 7 JSON Schemas documented |
+| [sdlc](https://github.com/CognitiveOS-Project/sdlc) | ✅ Complete | Implementation plan, CI/CD workflow documented |
+| [cpm](https://github.com/CognitiveOS-Project/cpm) | 🟡 Partial | 8 core commands (init/install/remove/list/info/verify/search/update) + publish implemented; Universal Protocol Router (git providers, npm/bun/deno) spec'd but not wired |
+| [cli](https://github.com/CognitiveOS-Project/cli) | 🟡 Partial | 6/7 display modes (system, processes, hardware, logs, network, config) implemented; Media mode spec'd but not rendered |
+| [cognitiveosd](https://github.com/CognitiveOS-Project/cognitiveosd) | 🟡 Partial | Unix socket protocol + Raw Model client integration done; cgroups/seccomp/chroot isolation per spec not yet implemented |
+| [inference](https://github.com/CognitiveOS-Project/inference) | 🟡 Partial | HTTP inference API + cograw Unix socket server exist; GGUF model loading uses mock — no real CGo bindings yet |
+| [core-mcp-bridges](https://github.com/CognitiveOS-Project/core-mcp-bridges) | ✅ Complete | All 5 bridges (display, audio, network, gpio, serial) implemented |
+| [registry-server](https://github.com/CognitiveOS-Project/registry-server) | 🟡 Partial | Proxy/notary (302 redirect + SHA-256 ledger) + publish done; no version listing endpoint yet, still uses in-memory store |
+| [cognitiveos-distro](https://github.com/CognitiveOS-Project/cognitiveos-distro) | ✅ Complete | Bootable ISO (x86_64) + RPi (aarch64) image builds with CI release workflow |
+| [cgp-template](https://github.com/CognitiveOS-Project/cgp-template) | ✅ Complete | .cgp package skeleton template |
+| raw-model | 📝 Spec'd | Specification in product-specs; no implementation yet |
+| ephemeral-identity | 📝 Spec'd | Specification in product-specs; no implementation yet |
+| hardware-spec | 📝 Spec'd | Specification in product-specs; no implementation yet |
+| dependency-validation | 📝 Spec'd | Validation rules (A9-A10, B7-B9) documented; not wired into cpm |
+| security-model | 📝 Spec'd | Specification in product-specs; no implementation yet |
 
 ## Git Workflow
 
