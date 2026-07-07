@@ -37,18 +37,18 @@ Two-tier AI brain on Alpine Linux, controlled via Bubble Tea TUI, talking to har
 
 ## Repositories
 
-| Repo | Language | Role |
-|------|----------|------|
-| [product-specs](https://github.com/CognitiveOS-Project/product-specs) | Markdown/JSON | Standards, schemas, .cgp format |
-| [sdlc](https://github.com/CognitiveOS-Project/sdlc) | Markdown | Implementation plan, workflow, CI/CD |
-| [cpm](https://github.com/CognitiveOS-Project/cpm) | Go | Cognitive Package Manager |
-| [core-mcp-bridges](https://github.com/CognitiveOS-Project/core-mcp-bridges) | Go | MCP hardware tool servers |
-| [inference](https://github.com/CognitiveOS-Project/inference) | Go/C | LLM inference engine |
-| [cognitiveosd](https://github.com/CognitiveOS-Project/cognitiveosd) | Go | System daemon |
-| [cli](https://github.com/CognitiveOS-Project/cli) | Go | Bubble Tea TUI frontend |
-| [cognitiveos-distro](https://github.com/CognitiveOS-Project/cognitiveos-distro) | Shell/Docker | Alpine image builder |
-| [cgp-template](https://github.com/CognitiveOS-Project/cgp-template) | Template | .cgp boilerplate |
-| [registry-server](https://github.com/CognitiveOS-Project/registry-server) | Go | Package registry |
+| Repo | Language | Role | Build |
+|------|----------|------|-------|
+| [product-specs](https://github.com/CognitiveOS-Project/product-specs) | Markdown/JSON | Standards, schemas, .cgp format | — |
+| [sdlc](https://github.com/CognitiveOS-Project/sdlc) | Markdown | Implementation plan, workflow, CI/CD | — |
+| [cpm](https://github.com/CognitiveOS-Project/cpm) | Go | Cognitive Package Manager | `make build` |
+| [core-mcp-bridges](https://github.com/CognitiveOS-Project/core-mcp-bridges) | Go | MCP hardware tool servers | `make build` |
+| [inference](https://github.com/CognitiveOS-Project/inference) | Go/C | LLM inference engine | `make build` |
+| [cognitiveosd](https://github.com/CognitiveOS-Project/cognitiveosd) | Go | System daemon | `make build` |
+| [cli](https://github.com/CognitiveOS-Project/cli) | Go | Bubble Tea TUI frontend | `make build` |
+| [cognitiveos-distro](https://github.com/CognitiveOS-Project/cognitiveos-distro) | Shell/Docker | Alpine image builder (orchestrator) | `make iso` / `make rpi` |
+| [cgp-template](https://github.com/CognitiveOS-Project/cgp-template) | Template | .cgp boilerplate | — |
+| [registry-server](https://github.com/CognitiveOS-Project/registry-server) | Go | Package registry | `make build` |
 
 ## Design Principles
 
@@ -58,14 +58,25 @@ Two-tier AI brain on Alpine Linux, controlled via Bubble Tea TUI, talking to har
 - **Ephemeral interface** — No windows, no home screen, no app grid. UI exists only for the duration of a task.
 - **Universal substrate** — Same architecture from a smartwatch to a server. The only difference is where the model runs.
 
-## Quick Start
+## Quick Start — Build a Component
+
+Each component builds independently:
 
 ```bash
-# Clone the distro builder
+# Build cpm
+git clone git@github.com:CognitiveOS-Project/cpm.git && cd cpm && make build
+
+# Build cognitiveosd
+git clone git@github.com:CognitiveOS-Project/cognitiveosd.git && cd cognitiveosd && make build
+```
+
+Standard targets across all Go repos: `make build`, `make test`, `make lint`, `make clean`.
+
+For the full distro ISO:
+
+```bash
 git clone git@github.com:CognitiveOS-Project/cognitiveos-distro.git
 cd cognitiveos-distro
-
-# Build an x86_64 ISO
 make iso
 ```
 
@@ -95,10 +106,10 @@ Each component is at a different maturity level. Here is the current state acros
 
 ## Git Workflow
 
-All repos follow the same flow:
+All repos work directly on `main`:
 
 ```
-feature/fix/bugfix branch → PR → development → PR → main → SemVer tag
+topic branch → PR → main → SemVer tag
 ```
 
 SSH-only, no rebase. See `.opencode/instructions/git-workflow.md` for details.
