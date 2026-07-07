@@ -107,6 +107,7 @@ SSH-only, no rebase. See `.opencode/instructions/git-workflow.md` for details.
 
 **Jean Machuca** — [GitHub](https://github.com/jeanmachuca) · [Sponsor](https://github.com/sponsors/jeanmachuca) · [LinkedIn](https://linkedin.com/in/jeanmachuca)
 
+
 ## Acknowledgments
 
 See [ACKNOWLEDGMENTS.md](ACKNOWLEDGMENTS.md) for the open-source projects that make CognitiveOS possible.
