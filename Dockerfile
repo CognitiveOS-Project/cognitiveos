@@ -5,9 +5,8 @@ VOLUME "/workspace"
 
 COPY . .
 
-# Install bash, git, curl, and docker tools from Docker official repo
+# Install git, curl, and docker tools from Docker official repo
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    bash \
     git \
     curl \
     ca-certificates \
@@ -19,4 +18,4 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     pip install --no-cache-dir --break-system-packages -r dev-requirements.txt && \
     pre-commit install
 
-CMD ["bash"]
+CMD ["sh"]

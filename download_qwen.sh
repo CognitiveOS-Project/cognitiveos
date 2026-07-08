@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 set -e
 
 echo "🚀 Downloading and installing model in the volume..."
