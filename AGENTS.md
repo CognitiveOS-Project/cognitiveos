@@ -29,7 +29,7 @@ Subfolder projects under `CognitiveOS-Project` GitHub org:
 | `inference/` | inference | Go/C | LLM inference engine |
 | `cognitiveosd/` | cognitiveosd | Go | System daemon |
 | `cli/` | cli | Go | Bubble Tea TUI frontend |
-| `cognitiveos-distro/` | cognitiveos-distro | Shell/Docker | Alpine image builder |
+| `cognitiveos-alpine-distro/` | cognitiveos-alpine-distro | Shell/Docker | Alpine image builder |
 | `cgp-template/` | cgp-template | Template | .cgp boilerplate |
 | `registry-server/` | registry-server | Go | Package registry |
 

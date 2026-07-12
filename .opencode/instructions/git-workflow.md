@@ -119,7 +119,7 @@ Tag all repos at the same version after all merges are complete:
 
 ```bash
 version="vMAJOR.MINOR.PATCH"
-for repo in cognitiveos product-specs sdlc cpm core-mcp-bridges inference cognitiveosd cli cognitiveos-distro registry-server cgp-template cognitive-os.org; do
+for repo in cognitiveos product-specs sdlc cpm core-mcp-bridges inference cognitiveosd cli cognitiveos-alpine-distro registry-server cgp-template cognitive-os.org; do
   gh -R CognitiveOS-Project/$repo api repos/CognitiveOS-Project/$repo/git/refs -X POST \
     -f ref="refs/tags/$version" \
     -f sha="$(gh -R CognitiveOS-Project/$repo api repos/CognitiveOS-Project/$repo/branches/main --jq '.commit.sha')"

@@ -46,7 +46,7 @@ Two-tier AI brain on Alpine Linux, controlled via Bubble Tea TUI, talking to har
 | [inference](https://github.com/CognitiveOS-Project/inference) | Go/C | LLM inference engine | `make build` |
 | [cognitiveosd](https://github.com/CognitiveOS-Project/cognitiveosd) | Go | System daemon | `make build` |
 | [cli](https://github.com/CognitiveOS-Project/cli) | Go | Bubble Tea TUI frontend | `make build` |
-| [cognitiveos-distro](https://github.com/CognitiveOS-Project/cognitiveos-distro) | Shell/Docker | Alpine image builder (orchestrator) | `make iso` / `make rpi` |
+| [cognitiveos-alpine-distro](https://github.com/CognitiveOS-Project/cognitiveos-alpine-distro) | Shell/Docker | Alpine image builder (orchestrator) | `make iso` / `make rpi` |
 | [cgp-template](https://github.com/CognitiveOS-Project/cgp-template) | Template | .cgp boilerplate | — |
 | [registry-server](https://github.com/CognitiveOS-Project/registry-server) | Go | Package registry | `make build` |
 
@@ -75,8 +75,8 @@ Standard targets across all Go repos: `make build`, `make test`, `make lint`, `m
 For the full distro ISO:
 
 ```bash
-git clone git@github.com:CognitiveOS-Project/cognitiveos-distro.git
-cd cognitiveos-distro
+git clone git@github.com:CognitiveOS-Project/cognitiveos-alpine-distro.git
+cd cognitiveos-alpine-distro
 make iso
 ```
 
@@ -96,7 +96,7 @@ Each component is at a different maturity level. Here is the current state acros
 | [inference](https://github.com/CognitiveOS-Project/inference) | 🟡 Partial | HTTP inference API + cograw Unix socket server exist; GGUF model loading uses mock — no real CGo bindings yet |
 | [core-mcp-bridges](https://github.com/CognitiveOS-Project/core-mcp-bridges) | ✅ Complete | All 5 bridges (display, audio, network, gpio, serial) implemented |
 | [registry-server](https://github.com/CognitiveOS-Project/registry-server) | 🟡 Partial | Proxy/notary (302 redirect + SHA-256 ledger) + publish done; no version listing endpoint yet, still uses in-memory store |
-| [cognitiveos-distro](https://github.com/CognitiveOS-Project/cognitiveos-distro) | ✅ Complete | Bootable ISO (x86_64) + RPi (aarch64) image builds with CI release workflow |
+| [cognitiveos-alpine-distro](https://github.com/CognitiveOS-Project/cognitiveos-alpine-distro) | ✅ Complete | Bootable ISO (x86_64) + RPi (aarch64) image builds with CI release workflow |
 | [cgp-template](https://github.com/CognitiveOS-Project/cgp-template) | ✅ Complete | .cgp package skeleton template |
 | raw-model | 📝 Spec'd | Specification in product-specs; no implementation yet |
 | ephemeral-identity | 📝 Spec'd | Specification in product-specs; no implementation yet |
