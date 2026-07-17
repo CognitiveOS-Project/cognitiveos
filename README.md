@@ -41,7 +41,7 @@ CognitiveOS runs on Alpine Linux with a two-tier AI brain, a message-bus daemon,
 ┌─────────────────────────────────────────────────────┐
 │                    User (Human)                      │
 ├─────────────────────────────────────────────────────┤
-│                  Bubble Tea TUI (cli)                │
+│               Terminal User Interface TUI (cli)           │
 ├─────────────────────────────────────────────────────┤
 │          coginit (boot manager / init)               │
 ├─────────────────────────────────────────────────────┤
@@ -90,7 +90,7 @@ The immediate focus is the **v0.1.0 release**: bootable images with real GGUF mo
 | [core-mcp-bridges](https://github.com/CognitiveOS-Project/core-mcp-bridges) | Go | MCP hardware tool servers | `make build` |
 | [inference](https://github.com/CognitiveOS-Project/inference) | Go/C | LLM inference engine (coginfer + cograw) | `make build` |
 | [cognitiveosd](https://github.com/CognitiveOS-Project/cognitiveosd) | Go | System daemon | `make build` |
-| [cli](https://github.com/CognitiveOS-Project/cli) | Go | Bubble Tea TUI frontend | `make build` |
+| [cli](https://github.com/CognitiveOS-Project/cli) | Go | Terminal User Interface (TUI) | `make build` |
 | [coginit](https://github.com/CognitiveOS-Project/coginit) | Go | Boot manager / init | `make build` |
 | [cognitiveos-alpine-distro](https://github.com/CognitiveOS-Project/cognitiveos-alpine-distro) | Shell/Docker | Alpine image builder | `make iso` / `make rpi` |
 | [cgp-template](https://github.com/CognitiveOS-Project/cgp-template) | Template | .cgp boilerplate | — |

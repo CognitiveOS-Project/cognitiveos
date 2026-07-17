@@ -28,7 +28,7 @@ Subfolder projects under `CognitiveOS-Project` GitHub org:
 | `core-mcp-bridges/` | core-mcp-bridges | Go | MCP hardware tool servers |
 | `inference/` | inference | Go/C | LLM inference engine |
 | `cognitiveosd/` | cognitiveosd | Go | System daemon |
-| `cli/` | cli | Go | Bubble Tea TUI frontend |
+| `cli/` | cli | Go | Terminal User Interface (TUI) |
 | `coginit/` | coginit | Go | Boot manager / init |
 | `cognitiveos-alpine-distro/` | cognitiveos-alpine-distro | Shell/Docker | Alpine image builder |
 | `cgp-template/` | cgp-template | Template | .cgp boilerplate |
