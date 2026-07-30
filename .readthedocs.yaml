@@ -22,5 +22,4 @@ build:
     #
     #  - Install the dependencies of your project
     #  - Build the documentation
-    #  - Save the generated files in $READTHEDOCS_OUTPUT/html
-
+    #  - Save the generated files in $READTHEDOCS_OUTPUT/htm
