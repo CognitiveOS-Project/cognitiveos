@@ -24,3 +24,5 @@ package-lock.json
 
 # macOS
 .DS_Store
+# macOS AppleDouble / Finder metadata
+._*
