@@ -68,6 +68,15 @@ These are wired via `opencode.json` `instructions` array or YAML frontmatter `al
 - Do not set or rely on `GH_TOKEN` for git operations. The env var may contain stale credentials.
 - If `GH_TOKEN` is set and invalid, unset it before running `gh` commands.
 
+## Process Enforcements (MANDATORY)
+
+All work in this repo MUST follow the CognitiveOS Process Enforcements:
+
+- `product-specs/docs/ENFORCEMENTS.md` — SPECv1, GHW, VibeLeading, ABSEv1
+- `sdlc/docs/ENFORCEMENTS.md` — same content (mirror)
+
+These enforcements are binding on every contributor, agent, and automation. No work may bypass them except on explicit user instruction (maintainer emergency).
+
 ## Default model
 
 `opencode.json` defaults to local inference at `http://api:8000/v1` (model.gguf). Cloud model aliases (`big-pickle`, `deepseek-v4-flash-free`, etc.) — switch with `/model`.
